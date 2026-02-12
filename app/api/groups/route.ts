@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
           shifts: true,
         },
         orderBy: {
-          id: 'desc',
+          name: 'desc',
         },
       });
       return NextResponse.json(groups);
@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
         shifts: true,
       },
       orderBy: {
-        id: 'desc',
+        name: 'asc',
       },
     });
 
