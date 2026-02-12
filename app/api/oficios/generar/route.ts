@@ -37,7 +37,7 @@ export async function POST(req: Request) {
 
   // Crear fecha en hora local sin conversión UTC
   const [year, month, day] = data.fecha.split("-").map(Number);
-  const fechaFormateada = new Date(year, month - 1, day).toLocaleDateString(
+  const fechaFormateada = new Date().toLocaleDateString(
     "es-ES",
     {
       day: "2-digit",
@@ -49,12 +49,13 @@ export async function POST(req: Request) {
   const horasTotales = data.blocks.reduce((acc: number, block: Block) => {
     const totalBlockHours = block.filas.reduce(
       (sum: number, fila: { totalHoras: number }) => sum + fila.totalHoras,
-      0
+      0,
     );
     return acc + totalBlockHours;
   }, 0);
 
   // 3️⃣ Reemplazar variables
+  console.log(data.blocks.some((b: Block) => b.sabatina));
   doc.render({
     oficio: data.numOficio,
     dia: day,
@@ -64,6 +65,7 @@ export async function POST(req: Request) {
     nombre: data.nombre,
     blocks: data.blocks,
     total_horas: horasTotales,
+    sabatina: data.blocks.some((b: Block) => b.sabatina),
   });
 
   // 4️⃣ Generar el archivo

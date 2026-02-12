@@ -151,6 +151,7 @@ export type Block = {
   tipoTabla: "clases" | "asesorias";
   filas: GroupedClass[] | Asesoria[];
   mostrarHorario?: boolean;
+  sabatina?: boolean;
 };
 
 export function buildBlocks(absences: Absence[]): Block[] {
@@ -166,6 +167,7 @@ export function buildBlocks(absences: Absence[]): Block[] {
         ...groupContinuousClasses(absences, "vespertino"),
       ],
       mostrarHorario: true,
+      sabatina: false,
     });
   }
 
@@ -177,6 +179,7 @@ export function buildBlocks(absences: Absence[]): Block[] {
         tipoTabla: "clases",
         filas: groupContinuousClasses(absences, "sabatino"),
         mostrarHorario: true,
+        sabatina: true,
       });
     }
 
@@ -186,6 +189,7 @@ export function buildBlocks(absences: Absence[]): Block[] {
         tipoTabla: "asesorias",
         filas: processAsesorias(absences),
         mostrarHorario: false,
+        sabatina: true,
       });
     }
   }
